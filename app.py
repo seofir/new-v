@@ -77,7 +77,9 @@ def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
 
+@app.before_first_request
+def create_tables():
+    db.create_all()
+
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
