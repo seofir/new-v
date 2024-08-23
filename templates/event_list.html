@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-6 text-center">רשימת אירועים</h1>
+
+    <a href="{{ url_for('events.create_event') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-6 inline-block">צור אירוע חדש</a>
+
+    <div class="space-y-4">
+        <h2 class="text-xl font-bold mt-8 mb-4">אירועים פעילים</h2>
+        <div id="active-events">
+            {% for event in ongoing_events %}
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div class="accordion-header cursor-pointer bg-gray-200 p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-semibold text-lg">{{ event.name }}</span>
+                                <p class="text-sm text-gray-600">תאריך: {{ event.date.strftime('%d/%m/%Y') if event.date else 'לא נקבע' }}</p>
+                                <p class="text-sm text-gray-600">משתתפים צפויים: {{ event.expected_participants }}</p>
+                            </div>
+                            <div class="flex items-center">
+                                <a href="{{ url_for('events.edit_event', event_id=event.id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded text-sm mr-2">ערוך</a>
+                                <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded text-sm" onclick="markEventDone({{ event.id }})">סמן כהסתיים</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-content p-4">
+                        <div class="mb-4">
+                            <a href="{{ url_for('dashboard', event_id=event.unique_id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">הצהרות שמולאו ({{ event.total_declarations }})</a>
+                        </div>
+                        <div class="mb-4">
+                            <p>הצהרות שסומנו: <span class="text-red-500">{{ event.flagged_declarations }}</span></p>
+                            <p>הצהרות שטופלו: <span class="text-green-500">{{ event.checked_declarations }}</span></p>
+                        </div>
+                        <div class="mb-4">
+                            <a href="{{ url_for('health_declaration', event_id=event.unique_id) }}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2">טופס הצהרת בריאות</a>
+                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded" onclick="copyLink('{{ url_for('health_declaration', event_id=event.unique_id, _external=True) }}')">העתק קישור</button>
+                        </div>
+                        <div class="mt-4">
+                            <p>איש קשר: {{ event.contact_name }}</p>
+                            <p>מספר טלפון: {{ event.contact_number }} <a href="https://api.whatsapp.com/send?phone={{ event.contact_number }}" class="text-green-500 ml-2" target="_blank">WhatsApp</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <h2 class="text-xl font-bold mt-8 mb-4">אירועים שהסתיימו</h2>
+        <div id="finished-events">
+            {% for event in finished_events %}
+                <div class="bg-white rounded-lg shadow-md overflow-hidden opacity-75">
+                    <div class="accordion-header cursor-pointer bg-gray-200 p-4">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="font-semibold text-lg">{{ event.name }} (הסתיים)</span>
+                                <p class="text-sm text-gray-600">תאריך: {{ event.date.strftime('%d/%m/%Y') if event.date else 'לא צוין' }}</p>
+                                <p class="text-sm text-gray-600">משתתפים צפויים: {{ event.expected_participants }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-content p-4">
+                        <div class="mb-4">
+                            <a href="{{ url_for('dashboard', event_id=event.unique_id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2">הצהרות שמולאו ({{ event.total_declarations }})</a>
+                        </div>
+                        <div class="mb-4">
+                            <p>הצהרות שסומנו: <span class="text-red-500">{{ event.flagged_declarations }}</span></p>
+                            <p>הצהרות שטופלו: <span class="text-green-500">{{ event.checked_declarations }}</span></p>
+                        </div>
+                        <div class="mt-4">
+                            <p>איש קשר: {{ event.contact_name }}</p>
+                            <p>מספר טלפון: {{ event.contact_number }} <a href="https://api.whatsapp.com/send?phone={{ event.contact_number }}" class="text-green-500 ml-2" target="_blank">WhatsApp</a></p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function markEventDone(eventId) {
+    fetch(`/mark_event_done/${eventId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token() }}'
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error marking event as done');
+        }
+    });
+}
+
+function copyLink(link) {
+    navigator.clipboard.writeText(link).then(function() {
+        alert('Link copied to clipboard!');
+    }, function(err) {
+        console.error('Could not copy text: ', err);
+    });
+}
+</script>
+{% endblock %}

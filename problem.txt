@@ -1,0 +1,122 @@
+C:\Users\ofir\asa-project\asa>heroku logs --tail
+2024-07-29T10:11:46.899902+00:00 app[web.1]: File "/app/app.py", line 185, in event_list
+2024-07-29T10:11:46.899902+00:00 app[web.1]: return render_template('event_list.html', ongoing_events=ongoing_events, finished_events=finished_events)
+2024-07-29T10:11:46.899902+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^   
+2024-07-29T10:11:46.899902+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/flask/templating.py", line 151, in render_template
+2024-07-29T10:11:46.899902+00:00 app[web.1]: return _render(app, template, context)
+2024-07-29T10:11:46.899902+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-07-29T10:11:46.899903+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/flask/templating.py", line 132, in _render    
+2024-07-29T10:11:46.899903+00:00 app[web.1]: rv = template.render(context)
+2024-07-29T10:11:46.899903+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^    
+2024-07-29T10:11:46.899903+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/jinja2/environment.py", line 1304, in render  
+2024-07-29T10:11:46.899903+00:00 app[web.1]: self.environment.handle_exception()
+2024-07-29T10:11:46.899903+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/jinja2/environment.py", line 939, in handle_exception
+2024-07-29T10:11:46.899904+00:00 app[web.1]: raise rewrite_traceback_stack(source=source)
+2024-07-29T10:11:46.899904+00:00 app[web.1]: File "/app/templates/event_list.html", line 75, in top-level template code
+2024-07-29T10:11:46.899904+00:00 app[web.1]: <p class="text-sm text-gray-600">תאריך: {{ event.date.strftime('%d/%m/%Y') }}</p>
+2024-07-29T10:11:46.899904+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^   
+2024-07-29T10:11:46.899905+00:00 app[web.1]: File "/app/.heroku/python/lib/python3.12/site-packages/jinja2/utils.py", line 83, in from_obj        
+2024-07-29T10:11:46.899905+00:00 app[web.1]: if hasattr(obj, "jinja_pass_arg"):
+2024-07-29T10:11:46.899905+00:00 app[web.1]: ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2024-07-29T10:11:46.899905+00:00 app[web.1]: jinja2.exceptions.UndefinedError: 'None' has no attribute 'strftime'
+2024-07-29T10:11:46.900904+00:00 app[web.1]: 10.1.30.222 - - [29/Jul/2024:10:11:46 +0000] "GET /events HTTP/1.1" 500 265 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:11:46.901183+00:00 heroku[router]: at=info method=GET path="/events" host=asa-0954a55b975f.herokuapp.com request_id=5f994161-31f7-4427-8f9d-bceae3cd9025 fwd="213.57.88.230" dyno=web.1 connect=0ms service=39ms status=500 bytes=438 protocol=https
+2024-07-29T10:13:56.000000+00:00 app[api]: Build started by user seofir@gmail.com
+2024-07-29T10:14:15.153834+00:00 app[api]: Deploy 16ebd67f by user seofir@gmail.com
+2024-07-29T10:14:15.153834+00:00 app[api]: Release v63 created by user seofir@gmail.com
+2024-07-29T10:14:16.882823+00:00 heroku[web.1]: Restarting
+2024-07-29T10:14:16.931322+00:00 heroku[web.1]: State changed from up to 
+starting
+2024-07-29T10:14:17.570278+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2024-07-29T10:14:17.586616+00:00 app[web.1]: [2024-07-29 10:14:17 +0000] 
+[9] [INFO] Worker exiting (pid: 9)
+2024-07-29T10:14:17.586723+00:00 app[web.1]: [2024-07-29 10:14:17 +0000] 
+[2] [INFO] Handling signal: term
+2024-07-29T10:14:17.586786+00:00 app[web.1]: [2024-07-29 10:14:17 +0000] 
+[10] [INFO] Worker exiting (pid: 10)
+2024-07-29T10:14:17.592721+00:00 app[web.1]: [2024-07-29 10:14:17 +0000] 
+[2] [ERROR] Worker (pid:9) was sent SIGTERM!
+2024-07-29T10:14:17.787181+00:00 app[web.1]: [2024-07-29 10:14:17 +0000] 
+[2] [INFO] Shutting down: Master
+2024-07-29T10:14:17.844974+00:00 heroku[web.1]: Process exited with status 0
+2024-07-29T10:14:19.442521+00:00 heroku[web.1]: Starting process with command `gunicorn wsgi:app`
+2024-07-29T10:14:20.000000+00:00 app[api]: Build succeeded
+2024-07-29T10:14:20.032739+00:00 app[web.1]: Python buildpack: Detected 512 MB available memory and 8 CPU cores.
+2024-07-29T10:14:20.032874+00:00 app[web.1]: Python buildpack: Defaulting WEB_CONCURRENCY to 2 based on the available memory.
+2024-07-29T10:14:20.247188+00:00 app[web.1]: [2024-07-29 10:14:20 +0000] 
+[2] [INFO] Starting gunicorn 22.0.0
+2024-07-29T10:14:20.247574+00:00 app[web.1]: [2024-07-29 10:14:20 +0000] 
+[2] [INFO] Listening at: http://0.0.0.0:49909 (2)
+2024-07-29T10:14:20.247618+00:00 app[web.1]: [2024-07-29 10:14:20 +0000] 
+[2] [INFO] Using worker: sync
+2024-07-29T10:14:20.251923+00:00 app[web.1]: [2024-07-29 10:14:20 +0000] 
+[9] [INFO] Booting worker with pid: 9
+2024-07-29T10:14:20.296322+00:00 app[web.1]: [2024-07-29 10:14:20 +0000] 
+[10] [INFO] Booting worker with pid: 10
+2024-07-29T10:14:20.565368+00:00 heroku[web.1]: State changed from starting to up
+2024-07-29T10:14:22.300320+00:00 app[web.1]: [2024-07-29 10:14:22,300] INFO in app: Application startup
+2024-07-29T10:14:22.300521+00:00 app[web.1]: [2024-07-29 10:14:22,300] INFO in app: Application startup
+2024-07-29T10:14:22.311627+00:00 app[web.1]: [2024-07-29 10:14:22,311] INFO in app: Application startup
+2024-07-29T10:14:22.311816+00:00 app[web.1]: [2024-07-29 10:14:22,311] INFO in app: Application startup
+2024-07-29T10:15:00.235655+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:00 +0000] "GET /events HTTP/1.1" 200 29005 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:00.235938+00:00 heroku[router]: at=info method=GET path="/events" host=asa-0954a55b975f.herokuapp.com request_id=5e45c3b4-13cf-4058-a03d-f2fec9be2f69 fwd="213.57.88.230" dyno=web.1 connect=0ms service=469ms status=200 bytes=29175 protocol=https
+2024-07-29T10:15:03.409311+00:00 heroku[router]: at=info method=POST path="/mark_event_done/38" host=asa-0954a55b975f.herokuapp.com request_id=9cc2c86f-b682-46ae-9572-7eb9dfe54072 fwd="213.57.88.230" dyno=web.1 connect=0ms service=19ms status=200 bytes=213 protocol=https
+2024-07-29T10:15:03.409381+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:03 +0000] "POST /mark_event_done/38 HTTP/1.1" 200 54 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:03.644011+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:03 +0000] "GET /events HTTP/1.1" 200 28166 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:03.644609+00:00 heroku[router]: at=info method=GET path="/events" host=asa-0954a55b975f.herokuapp.com request_id=9792b4d9-6924-4d1f-9bca-13d32bdacc46 fwd="213.57.88.230" dyno=web.1 connect=0ms service=123ms status=200 bytes=28336 protocol=https
+2024-07-29T10:15:06.615915+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:06 +0000] "GET /dashboard/04ecf65f HTTP/1.1" 200 14183 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:06.615975+00:00 heroku[router]: at=info method=GET path="/dashboard/04ecf65f" host=asa-0954a55b975f.herokuapp.com request_id=213e7ddd-6fd7-4bc7-a5f2-28edcb8c24d1 fwd="213.57.88.230" dyno=web.1 connect=0ms service=96ms status=200 bytes=14339 protocol=https
+2024-07-29T10:15:08.477203+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:08 +0000] "GET /events HTTP/1.1" 200 28166 "https://asa-0954a55b975f.herokuapp.com/dashboard/04ecf65f" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:08.477511+00:00 heroku[router]: at=info method=GET path="/events" host=asa-0954a55b975f.herokuapp.com request_id=6037206b-78c3-4043-ae38-cc01cbc0addc fwd="213.57.88.230" dyno=web.1 connect=0ms service=109ms status=200 bytes=28336 protocol=https
+2024-07-29T10:15:09.513689+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:09 +0000] "GET /create_event HTTP/1.1" 200 4229 "https://asa-0954a55b975f.herokuapp.com/events" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"    
+2024-07-29T10:15:09.513819+00:00 heroku[router]: at=info method=GET path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=54a68337-9897-4430-9c0c-091c5dd5654b fwd="213.57.88.230" dyno=web.1 connect=0ms service=11ms status=200 bytes=4698 protocol=https
+2024-07-29T10:15:22.856160+00:00 app[web.1]: [2024-07-29 10:15:22,855] ERROR in app: Error creating event: (psycopg2.errors.NotNullViolation) null value in column "user_id" of relation "event" violates not-null constraint
+2024-07-29T10:15:22.856171+00:00 app[web.1]: DETAIL:  Failing row contains (39, סתם בדיקה, null, null, a54cfc14, null, null, f, null).
+2024-07-29T10:15:22.856172+00:00 app[web.1]:
+2024-07-29T10:15:22.856173+00:00 app[web.1]: [SQL: INSERT INTO event (name, date, expected_participants, unique_id, contact_name, contact_number, 
+is_done, user_id) VALUES (%(name)s, %(date)s, %(expected_participants)s, 
+%(unique_id)s, %(contact_name)s, %(contact_number)s, %(is_done)s, %(user_id)s) RETURNING event.id]
+2024-07-29T10:15:22.856175+00:00 app[web.1]: [parameters: {'name': 'סתם בדיקה', 'date': None, 'expected_participants': None, 'unique_id': 'a54cfc14', 'contact_name': None, 'contact_number': None, 'is_done': False, 'user_id': None}]
+2024-07-29T10:15:22.856176+00:00 app[web.1]: (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-29T10:15:22.858012+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:22 +0000] "POST /create_event HTTP/1.1" 200 3995 "https://asa-0954a55b975f.herokuapp.com/create_event" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:22.858097+00:00 heroku[router]: at=info method=POST path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=cbef29e4-607e-43e2-a72a-5a47c5c8d586 fwd="213.57.88.230" dyno=web.1 connect=0ms service=13ms status=200 bytes=4464 protocol=https
+2024-07-29T10:15:31.065997+00:00 app[web.1]: [2024-07-29 10:15:31,065] ERROR in app: Error creating event: (psycopg2.errors.NotNullViolation) null value in column "user_id" of relation "event" violates not-null constraint
+2024-07-29T10:15:31.066025+00:00 app[web.1]: DETAIL:  Failing row contains (40, סתם בדיקה, 1982-04-30, null, ddcdc728, null, null, f, null).      
+2024-07-29T10:15:31.066026+00:00 app[web.1]:
+2024-07-29T10:15:31.066027+00:00 app[web.1]: [SQL: INSERT INTO event (name, date, expected_participants, unique_id, contact_name, contact_number, 
+is_done, user_id) VALUES (%(name)s, %(date)s, %(expected_participants)s, 
+%(unique_id)s, %(contact_name)s, %(contact_number)s, %(is_done)s, %(user_id)s) RETURNING event.id]
+2024-07-29T10:15:31.066031+00:00 app[web.1]: [parameters: {'name': 'סתם בדיקה', 'date': datetime.date(1982, 4, 30), 'expected_participants': None, 'unique_id': 'ddcdc728', 'contact_name': None, 'contact_number': None, 'is_done': False, 'user_id': None}]
+2024-07-29T10:15:31.066032+00:00 app[web.1]: (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-29T10:15:31.068010+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:31 +0000] "POST /create_event HTTP/1.1" 200 4005 "https://asa-0954a55b975f.herokuapp.com/create_event" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:31.068055+00:00 heroku[router]: at=info method=POST path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=0e62ead9-0e93-4195-911b-e29856b03b8c fwd="213.57.88.230" dyno=web.1 connect=0ms service=10ms status=200 bytes=4474 protocol=https
+2024-07-29T10:15:34.478528+00:00 app[web.1]: [2024-07-29 10:15:34,478] ERROR in app: Error creating event: (psycopg2.errors.NotNullViolation) null value in column "user_id" of relation "event" violates not-null constraint
+2024-07-29T10:15:34.478565+00:00 app[web.1]: DETAIL:  Failing row contains (41, סתם בדיקה, 1982-04-30, 32, 921805cd, null, null, f, null).        
+2024-07-29T10:15:34.478566+00:00 app[web.1]:
+2024-07-29T10:15:34.478642+00:00 app[web.1]: [SQL: INSERT INTO event (name, date, expected_participants, unique_id, contact_name, contact_number, 
+is_done, user_id) VALUES (%(name)s, %(date)s, %(expected_participants)s, 
+%(unique_id)s, %(contact_name)s, %(contact_number)s, %(is_done)s, %(user_id)s) RETURNING event.id]
+2024-07-29T10:15:34.478643+00:00 app[web.1]: [parameters: {'name': 'סתם בדיקה', 'date': datetime.date(1982, 4, 30), 'expected_participants': 32, 'unique_id': '921805cd', 'contact_name': None, 'contact_number': None, 'is_done': False, 'user_id': None}]
+2024-07-29T10:15:34.478644+00:00 app[web.1]: (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-29T10:15:34.495212+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:34 +0000] "POST /create_event HTTP/1.1" 200 4007 "https://asa-0954a55b975f.herokuapp.com/create_event" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:34.495450+00:00 heroku[router]: at=info method=POST path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=0d727d6d-8970-4846-92c3-b888096ce173 fwd="213.57.88.230" dyno=web.1 connect=0ms service=33ms status=200 bytes=4476 protocol=https
+2024-07-29T10:15:37.797252+00:00 app[web.1]: [2024-07-29 10:15:37,797] ERROR in app: Error creating event: (psycopg2.errors.NotNullViolation) null value in column "user_id" of relation "event" violates not-null constraint
+2024-07-29T10:15:37.797268+00:00 app[web.1]: DETAIL:  Failing row contains (42, סתם בדיקה, 1982-04-30, 32, 34826486, שכג, null, f, null).
+2024-07-29T10:15:37.797268+00:00 app[web.1]:
+2024-07-29T10:15:37.797269+00:00 app[web.1]: [SQL: INSERT INTO event (name, date, expected_participants, unique_id, contact_name, contact_number, 
+is_done, user_id) VALUES (%(name)s, %(date)s, %(expected_participants)s, 
+%(unique_id)s, %(contact_name)s, %(contact_number)s, %(is_done)s, %(user_id)s) RETURNING event.id]
+2024-07-29T10:15:37.797270+00:00 app[web.1]: [parameters: {'name': 'סתם בדיקה', 'date': datetime.date(1982, 4, 30), 'expected_participants': 32, 'unique_id': '34826486', 'contact_name': 'שכג', 'contact_number': None, 'is_done': False, 'user_id': None}]
+2024-07-29T10:15:37.797271+00:00 app[web.1]: (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-29T10:15:37.799344+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:37 +0000] "POST /create_event HTTP/1.1" 200 4013 "https://asa-0954a55b975f.herokuapp.com/create_event" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:37.799429+00:00 heroku[router]: at=info method=POST path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=8f07f56f-5a44-477a-9ef0-6872877f863f fwd="213.57.88.230" dyno=web.1 connect=1ms service=11ms status=200 bytes=4482 protocol=https
+2024-07-29T10:15:40.523939+00:00 app[web.1]: [2024-07-29 10:15:40,523] ERROR in app: Error creating event: (psycopg2.errors.NotNullViolation) null value in column "user_id" of relation "event" violates not-null constraint
+2024-07-29T10:15:40.523956+00:00 app[web.1]: DETAIL:  Failing row contains (43, סתם בדיקה, 1982-04-30, 32, 0bd2145b, שכג, 123123123123, f, null). 
+2024-07-29T10:15:40.523957+00:00 app[web.1]:
+2024-07-29T10:15:40.523992+00:00 app[web.1]: [SQL: INSERT INTO event (name, date, expected_participants, unique_id, contact_name, contact_number, 
+is_done, user_id) VALUES (%(name)s, %(date)s, %(expected_participants)s, 
+%(unique_id)s, %(contact_name)s, %(contact_number)s, %(is_done)s, %(user_id)s) RETURNING event.id]
+2024-07-29T10:15:40.523993+00:00 app[web.1]: [parameters: {'name': 'סתם בדיקה', 'date': datetime.date(1982, 4, 30), 'expected_participants': 32, 'unique_id': '0bd2145b', 'contact_name': 'שכג', 'contact_number': '123123123123', 'is_done': False, 'user_id': None}]
+2024-07-29T10:15:40.523994+00:00 app[web.1]: (Background on this error at: https://sqlalche.me/e/20/gkpj)
+2024-07-29T10:15:40.525797+00:00 app[web.1]: 10.1.9.135 - - [29/Jul/2024:10:15:40 +0000] "POST /create_event HTTP/1.1" 200 4025 "https://asa-0954a55b975f.herokuapp.com/create_event" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36"
+2024-07-29T10:15:40.525877+00:00 heroku[router]: at=info method=POST path="/create_event" host=asa-0954a55b975f.herokuapp.com request_id=3687cac4-eb05-4197-9054-35656f99e780 fwd="213.57.88.230" dyno=web.1 connect=0ms service=8ms status=200 bytes=4494 protocol=https

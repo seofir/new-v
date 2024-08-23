@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>טופס הצהרת בריאות</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Heebo', sans-serif; }
+        .required::after { content: " *"; color: red; }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4 max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">טופס הצהרת בריאות עבור {{ event.name }}</h1>
+        <form method="POST" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            {{ form.hidden_tag() }}
+            <div class="mb-4">
+                {{ form.full_name.label(class="block text-gray-700 text-sm font-bold mb-2 required") }}
+                {{ form.full_name(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            </div>
+            <div class="mb-4">
+                {{ form.phone_number.label(class="block text-gray-700 text-sm font-bold mb-2 required") }}
+                {{ form.phone_number(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            </div>
+            <div class="mb-4">
+                {{ form.year_of_birth.label(class="block text-gray-700 text-sm font-bold mb-2 required") }}
+                {{ form.year_of_birth(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            </div>
+            <div class="mb-4">
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-sm font-bold mb-2">בבקשה לסמן אם סבלת או סובל כרגע מאחד מהתסמינים הבאים</label>
+                    <div class="mt-2 grid grid-cols-2 gap-2">
+                        {% for choice in form.symptoms %}
+                            <label class="inline-flex items-center">
+                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" name="symptoms" value="{{ choice.data }}" id="{{ choice.id }}">
+                                <span class="mr-2">{{ choice.label.text }}</span>
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="autoimmune_check" name="autoimmune_check">
+                    <span class="mr-2">האם סבלת ממחלה אוטואימונית?</span>
+                </label>
+                <div id="autoimmune_details" class="mt-2 hidden">
+                    {{ form.autoimmune_disease.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.autoimmune_disease(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="other_medical_check" name="other_medical_check">
+                    <span class="mr-2">האם אתה סובל מבעיה רפואית אחרת?</span>
+                </label>
+                <div id="other_medical_details" class="mt-2 hidden">
+                    {{ form.other_medical_condition.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.other_medical_condition(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+            </div>
+            <div class="mb-4">
+                {{ form.medication.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                {{ form.medication(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            </div>
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="allergies_check" name="allergies_check">
+                    <span class="mr-2">האם אתה אלרגי לחומר מסוים?</span>
+                </label>
+                <div id="allergies_details" class="mt-2 hidden">
+                    {{ form.allergies.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.allergies(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+                </div>
+            </div>
+            <div class="mb-4">
+                {{ form.pregnant.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                {{ form.pregnant(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline") }}
+            </div>
+            <div class="mb-4">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="additional_info_check" name="additional_info_check">
+                    <span class="mr-2">האם יש עוד משהו שהמדריך שלך צריך לדעת?</span>
+                </label>
+                <div id="additional_info_details" class="mt-2 hidden">
+                    {{ form.additional_info.label(class="block text-gray-700 text-sm font-bold mb-2") }}
+                    {{ form.additional_info(class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", rows="3") }}
+                </div>
+            </div>
+            <div class="mb-6">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600" id="honesty_declaration" name="honesty_declaration" required>
+                    <span class="mr-2">אני מצהיר בזאת שמילאתי טופס זה בכנות.</span>
+                </label>
+            </div>
+            <div class="flex items-center justify-between">
+                {{ form.submit(class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline") }}
+            </div>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const toggleVisibility = (checkboxId, detailsId) => {
+                const checkbox = document.getElementById(checkboxId);
+                const details = document.getElementById(detailsId);
+                checkbox.addEventListener('change', function() {
+                    details.classList.toggle('hidden', !this.checked);
+                });
+            };
+
+            toggleVisibility('autoimmune_check', 'autoimmune_details');
+            toggleVisibility('other_medical_check', 'other_medical_details');
+            toggleVisibility('allergies_check', 'allergies_details');
+            toggleVisibility('additional_info_check', 'additional_info_details');
+        });
+    </script>
+</body>
+</html>

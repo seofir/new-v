@@ -1,0 +1,17 @@
+.aider*
+# Ignore local environment variables
+.env
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore database files
+*.db
+
+# Ignore log files
+*.log
+
+# Ignore Heroku specific files
+*.pyc
+staticfiles

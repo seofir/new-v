@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>שגיאת שרת - 500</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+        <h1 class="text-3xl font-bold mb-4">שגיאת שרת - 500</h1>
+        <p class="mb-4">אנו מצטערים, אירעה שגיאה בשרת. צוות הפיתוח שלנו קיבל התראה ויטפל בבעיה בהקדם.</p>
+        <a href="{{ url_for('home') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            חזרה לדף הבית
+        </a>
+    </div>
+</body>
+</html>
