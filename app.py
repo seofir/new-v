@@ -2,6 +2,7 @@ import os
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate
 from datetime import datetime
 
 app = Flask(__name__)
@@ -23,6 +24,7 @@ else:
 # Initialize extensions
 db = SQLAlchemy(app)
 csrf = CSRFProtect(app)
+migrate = Migrate(app, db)
 
 # Import models after db is defined
 from models import Event, HealthDeclaration
@@ -76,10 +78,6 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
-
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True)
